@@ -7,7 +7,7 @@ using System.Drawing;
 
 namespace SnakeFarm
 {
-    internal class SnakeType
+    public class SnakeType
     {
         public int x, y;
         public int width;
@@ -17,11 +17,12 @@ namespace SnakeFarm
         public int health;
         public string type;
         public int speed;
+        public int damage;
 
         public double Direction;
 
         public List<PointF> gorgPoints = new List<PointF>(); // these are the points of the snakes tail so you can see a clear movement with the snakes
-        
+
         public SnakeType(string type)
         {
             this.type = type;
@@ -38,13 +39,16 @@ namespace SnakeFarm
             }
 
         }
-
         private void Gorgenschleimer()
         {
-            width = 20;
-            height = 20;
-            health = 10;
-            
+            if (FarmScreen.counter == 0)
+            {
+                width = 20;
+                height = 20;
+                health = 10;
+                damage = 1;
+                FarmScreen.counter++;
+            }
             // Initialize the speed based on the given speed parameter
 
             // Ensure the snake starts moving in a random direction
@@ -64,29 +68,43 @@ namespace SnakeFarm
             {
                 gorgPoints.RemoveAt(0);
             }
+
+            if (health == 0)
+            {
+                FarmScreen.DefaultBackColor.Equals (Color.Red);
+            }
         }
         public void Move()
         {
             x += xSpeed;
             y += ySpeed;
 
-            if (x < 0 || x > FarmScreen.width - width)
-            {
-                xSpeed *= -10;
-            }
-
-            else if (y < 0 || y > FarmScreen.height - height)
-            {
-                ySpeed *= -10;
-            }
-            else if (FarmScreen.countdown <= 0)
+            if (FarmScreen.countdown <= 0)
             {
                 Gorgenschleimer();
             }
+            else if (x < 0)
+            {
+                x = 0;
+                Gorgenschleimer();
+            }
+            else if (x > FarmScreen.width - width)
+            {
+                x = FarmScreen.width - width;
+                Gorgenschleimer();
+            }
+            else if (y < 0)
+            {
+                y = 0;
+                Gorgenschleimer();
+            }
+            else if (y > FarmScreen.height - height)
+            {
+                y = FarmScreen.height - height;
+                Gorgenschleimer();
+            }
+
             //put change in direction here and all movements here
-
-
-
         }
     }
-}
+    }

@@ -28,20 +28,20 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.defaultPower1 = new System.Windows.Forms.Button();
+            this.swordPower1 = new System.Windows.Forms.Button();
             this.buckshotButton = new System.Windows.Forms.Button();
             this.hoeButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
-            // defaultPower1
+            // swordPower1
             // 
-            this.defaultPower1.Location = new System.Drawing.Point(780, 131);
-            this.defaultPower1.Name = "defaultPower1";
-            this.defaultPower1.Size = new System.Drawing.Size(163, 107);
-            this.defaultPower1.TabIndex = 0;
-            this.defaultPower1.Text = "sword";
-            this.defaultPower1.UseVisualStyleBackColor = true;
-            this.defaultPower1.Click += new System.EventHandler(this.defaultPower1_Click);
+            this.swordPower1.Location = new System.Drawing.Point(780, 131);
+            this.swordPower1.Name = "swordPower1";
+            this.swordPower1.Size = new System.Drawing.Size(163, 107);
+            this.swordPower1.TabIndex = 0;
+            this.swordPower1.Text = "sword";
+            this.swordPower1.UseVisualStyleBackColor = true;
+            this.swordPower1.Click += new System.EventHandler(this.swordPower1_Click);
             // 
             // buckshotButton
             // 
@@ -68,7 +68,7 @@
             this.BackColor = System.Drawing.Color.DimGray;
             this.Controls.Add(this.hoeButton);
             this.Controls.Add(this.buckshotButton);
-            this.Controls.Add(this.defaultPower1);
+            this.Controls.Add(this.swordPower1);
             this.Name = "ShopScreen";
             this.Size = new System.Drawing.Size(1366, 768);
             this.ResumeLayout(false);
@@ -77,7 +77,7 @@
 
         #endregion
 
-        private System.Windows.Forms.Button defaultPower1;
+        private System.Windows.Forms.Button swordPower1;
         private System.Windows.Forms.Button buckshotButton;
         private System.Windows.Forms.Button hoeButton;
     }

@@ -17,13 +17,15 @@ namespace SnakeFarm
             InitializeComponent();
         }
 
-        private void defaultPower1_Click(object sender, EventArgs e)
+        private void swordPower1_Click(object sender, EventArgs e)
         {
             Form f = this.FindForm();
             f.Controls.Remove(this);
 
             FarmScreen fs = new FarmScreen();
             f.Controls.Add(fs);
+
+            FarmScreen.farmer.sword = true;
         }
     }
 }

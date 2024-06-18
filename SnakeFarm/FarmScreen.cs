@@ -14,19 +14,21 @@ namespace SnakeFarm
     {
         SolidBrush greenBrush = new SolidBrush(Color.Green);
         SolidBrush redBrush = new SolidBrush(Color.Red);
-        Pen orangePen = new Pen(Color.Orange,10);
+        Pen orangePen = new Pen(Color.Orange, 15);
 
         public static int width, height;
 
-        bool aKeyDown, dKeyDown, wKeyDown, sKeyDown;
-
-        Player farmer;
+        bool aKeyDown, dKeyDown, wKeyDown, sKeyDown, spaceKeyDown;
+                   
+        public static Player farmer;
 
         public static int countdown = 5;
         public static bool canRandomize = false;
 
         List<SnakeType> snaketype = new List<SnakeType>();
         SnakeType snake = new SnakeType("Gorgenschleimer");
+
+        public static int counter = 0;
 
         public FarmScreen()
         {
@@ -58,6 +60,10 @@ namespace SnakeFarm
                 case Keys.S:
                     sKeyDown = true;
                     break;
+                case Keys.Space:
+                    spaceKeyDown = true;
+                    break;
+
             }
         }
         private void FarmScreen_KeyUp(object sender, KeyEventArgs e)
@@ -76,11 +82,14 @@ namespace SnakeFarm
                 case Keys.S:
                     sKeyDown = false;
                     break;
+                case Keys.Space:
+                    spaceKeyDown = false;
+                    break;
             }
         }
         private void gameTimer_Tick(object sender, EventArgs e)
         {
-            //move all the enemy balls
+            //move all the enemy 
             countdown--;
             if (countdown == 0)
             {
@@ -111,12 +120,18 @@ namespace SnakeFarm
             {
                 farmer.Move("left");
             }
+            // Player attack
+            if (spaceKeyDown)
+            {
+                farmer.Attack(snake);
+            }
 
             canRandomize = false;
             Refresh();
         }
             private void FarmScreen_Paint(object sender, PaintEventArgs e)
             {
+            e.Graphics.FillRectangle(redBrush, farmer.rect.X, farmer.rect.Y, farmer.rect.Width, farmer.rect.Height);  
             e.Graphics.FillRectangle(greenBrush, farmer.x, farmer.y, farmer.width, farmer.height);
             for (int i = 1; i < snake.gorgPoints.Count; i++)
             {
@@ -124,5 +139,6 @@ namespace SnakeFarm
             }
             e.Graphics.FillRectangle(redBrush, snake.x, snake.y, snake.width, snake.height);
             }
+            
     }
 }
