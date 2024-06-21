@@ -19,6 +19,7 @@ namespace SnakeFarm
 
         private void swordPower1_Click(object sender, EventArgs e)
         {
+            FarmScreen.counter = 0;
             Form f = this.FindForm();
             f.Controls.Remove(this);
 

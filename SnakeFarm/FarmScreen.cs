@@ -146,6 +146,7 @@ namespace SnakeFarm
             }
             if (snake.x <= -2000 /*&&*/)
             {
+                gameTimer.Enabled = false;
                 Form f = this.FindForm();
                 f.Controls.Remove(this);
 
@@ -167,6 +168,7 @@ namespace SnakeFarm
                     farmer.health--;
                     if (farmer.health == 0)
                     {
+                        gameTimer.Enabled = false;
                         Form f = this.FindForm();
                         f.Controls.Remove(this);
 
