@@ -25,7 +25,6 @@ namespace SnakeFarm
             FarmScreen fs = new FarmScreen();
             f.Controls.Add(fs);
 
-            FarmScreen.farmer.sword = true;
         }
     }
 }

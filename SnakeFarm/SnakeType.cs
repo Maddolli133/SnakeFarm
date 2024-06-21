@@ -49,8 +49,11 @@ namespace SnakeFarm
                 damage = 1;
                 FarmScreen.counter++;
             }
-            // Initialize the speed based on the given speed parameter
+            // Initialize the speed based on the given speed parameter            
+        }
 
+        private void SpecialMovements()
+        {
             // Ensure the snake starts moving in a random direction
             Random randGen = new Random();
 
@@ -69,10 +72,6 @@ namespace SnakeFarm
                 gorgPoints.RemoveAt(0);
             }
 
-            if (health == 0)
-            {
-                FarmScreen.DefaultBackColor.Equals (Color.Red);
-            }
         }
         public void Move()
         {
@@ -81,27 +80,27 @@ namespace SnakeFarm
 
             if (FarmScreen.countdown <= 0)
             {
-                Gorgenschleimer();
+                SpecialMovements();
             }
             else if (x < 0)
             {
                 x = 0;
-                Gorgenschleimer();
+                SpecialMovements();
             }
             else if (x > FarmScreen.width - width)
             {
                 x = FarmScreen.width - width;
-                Gorgenschleimer();
+                SpecialMovements();
             }
             else if (y < 0)
             {
                 y = 0;
-                Gorgenschleimer();
+                SpecialMovements();
             }
             else if (y > FarmScreen.height - height)
             {
                 y = FarmScreen.height - height;
-                Gorgenschleimer();
+                SpecialMovements();
             }
 
             //put change in direction here and all movements here

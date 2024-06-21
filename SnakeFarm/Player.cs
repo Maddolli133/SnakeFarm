@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Drawing;
+using System.Windows.Forms;
 
 namespace SnakeFarm
 {
@@ -17,15 +18,16 @@ namespace SnakeFarm
         public int strength = 1;
 
         public bool sword;
-
+        public Rectangle rect = new Rectangle(0, 0, 30, 30);
+        public Rectangle prect = new Rectangle(0, 0, 30, 30);
         string direction;
 
         public Player(int x, int y)
         {
             this.x = x;
             this.y = y;
+
         }
-        public Rectangle rect = new Rectangle(0, 0, 30, 30);
 
         public void Move(string direction)
         {
@@ -66,14 +68,11 @@ namespace SnakeFarm
                     x = FarmScreen.width - width;
                 }
             }
-        }
-        private void startPowers()
-        {
-            if (sword == true)
-            {
 
-            }
+            prect.X = x;
+            prect.Y = y;
         }
+        
         public void Attack(SnakeType target)
         {
             if (direction == "up")
@@ -139,15 +138,6 @@ namespace SnakeFarm
 
         }
 
-        //public bool Collision(SnakeType snake)
-        //{
-
-        //    if (Player.IntersectsWith(snake.gorgPoints))
-        //    {
-
-        //    }
-
-        //    return false;
-        //}
+       
     }
 }

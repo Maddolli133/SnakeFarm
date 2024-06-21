@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Media;
 
 namespace SnakeFarm
 {
@@ -28,20 +29,31 @@ namespace SnakeFarm
         List<SnakeType> snaketype = new List<SnakeType>();
         SnakeType snake = new SnakeType("Gorgenschleimer");
 
+        public static System.Windows.Media.MediaPlayer backSound = new System.Windows.Media.MediaPlayer();
+
         public static int counter = 0;
 
         public FarmScreen()
         {
             InitializeComponent();
             InitializeGame();
+            backSound.Open(new Uri(Application.StartupPath + "\\Resources\\the-epicmusic.wav"));
+            backSound.MediaEnded += new EventHandler(backSoundEnded);
+            backSound.Play();
         }
 
+        private void backSoundEnded(object sender, EventArgs e)
+        {
+            backSound.Stop();
+            backSound.Play();
+        }
         public void InitializeGame()
         {
             width = this.Width;
             height = this.Height;
 
             farmer = new Player(100, 100);
+            //if ()
             snaketype.Add (snake); 
         }
         private void FarmScreen_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
@@ -125,14 +137,70 @@ namespace SnakeFarm
             {
                 farmer.Attack(snake);
             }
-
-            canRandomize = false;
-            Refresh();
-        }
-            private void FarmScreen_Paint(object sender, PaintEventArgs e)
+            if (snake.health <= 0)
             {
-            e.Graphics.FillRectangle(redBrush, farmer.rect.X, farmer.rect.Y, farmer.rect.Width, farmer.rect.Height);  
-            e.Graphics.FillRectangle(greenBrush, farmer.x, farmer.y, farmer.width, farmer.height);
+                snake.gorgPoints.Clear();
+                snake.x = -2000;
+                snake.y = -2000;
+
+            }
+            if (snake.x <= -2000 /*&&*/)
+            {
+                Form f = this.FindForm();
+                f.Controls.Remove(this);
+
+                ShopScreen ss = new ShopScreen();
+                f.Controls.Add(ss);
+            }
+            canRandomize = false;
+
+            Collision(snake);
+            Refresh();
+
+        }
+        public bool Collision(SnakeType snake)
+        {
+            foreach (PointF p in snake.gorgPoints)
+            {
+                if (farmer.prect.Contains(new Point(Convert.ToInt32(p.X), Convert.ToInt32(p.Y))))
+                {
+                    farmer.health--;
+                    if (farmer.health == 0)
+                    {
+                        Form f = this.FindForm();
+                        f.Controls.Remove(this);
+
+                        ShopScreen ss = new ShopScreen();
+                        f.Controls.Add(ss);
+                    }
+                }
+            }
+            return false;
+        }
+        private void FarmScreen_Paint(object sender, PaintEventArgs e)
+            {
+            if (wKeyDown)
+            {
+                e.Graphics.DrawImage(Properties.Resources.w, farmer.x, farmer.y, farmer.width, farmer.height);
+            }
+            else if (sKeyDown)
+            {
+                e.Graphics.DrawImage(Properties.Resources.s, farmer.x, farmer.y, farmer.width, farmer.height);
+            }
+            else if (dKeyDown)
+            {
+                e.Graphics.DrawImage(Properties.Resources.d, farmer.x, farmer.y, farmer.width, farmer.height);
+            }
+            else if (aKeyDown)
+            {
+                e.Graphics.DrawImage(Properties.Resources.a, farmer.x, farmer.y, farmer.width, farmer.height);
+            }
+            else
+            {
+                e.Graphics.DrawImage(Properties.Resources.s, farmer.x, farmer.y, farmer.width, farmer.height);
+            }
+            e.Graphics.FillRectangle(redBrush, farmer.rect.X, farmer.rect.Y, farmer.rect.Width, farmer.rect.Height);
+            
             for (int i = 1; i < snake.gorgPoints.Count; i++)
             {
                 e.Graphics.DrawLine(orangePen, snake.gorgPoints[i], snake.gorgPoints[i - 1]);

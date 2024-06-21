@@ -43,9 +43,10 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.LightGray;
+            this.BackgroundImage = global::SnakeFarm.Properties.Resources.background;
             this.DoubleBuffered = true;
             this.Name = "FarmScreen";
-            this.Size = new System.Drawing.Size(1200, 700);
+            this.Size = new System.Drawing.Size(1350, 729);
             this.Paint += new System.Windows.Forms.PaintEventHandler(this.FarmScreen_Paint);
             this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.FarmScreen_KeyUp);
             this.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.FarmScreen_PreviewKeyDown);
